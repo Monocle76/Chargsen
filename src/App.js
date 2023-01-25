@@ -1,6 +1,6 @@
-import { Button, Container, Heading, Text, Stack, Box, OrderedList, ListItem } from "@chakra-ui/react";
+import { Button, Container, Heading, Text, Stack, Box, OrderedList, ListItem, InputGroup, Input, HStack } from "@chakra-ui/react";
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 function App() {
   var [users, setUsers] = useState([{}]);
@@ -10,6 +10,18 @@ function App() {
       setUsers(data.data)
       setClick(true)
     })
+  }
+  var userInput = useRef();
+  function handleSubmit() {
+    var username = userInput.current.value;
+    var user = {
+      name: username,
+      id: users.length + 1
+    }
+    axios.post("/api/users", user).then(response => {
+      setUsers(response.data);
+    })
+    // getData();
   }
 
   return (
@@ -23,6 +35,10 @@ function App() {
           </OrderedList>
         </Box>}
         <Button colorScheme={"teal"} onClick={getData}>Load Data from server</Button>
+        <InputGroup w={400} gap={2}>
+          <Input placeholder="Enter the user" ref={userInput}/>
+          <Button colorScheme={"teal"} onClick={handleSubmit}>Submit</Button>
+        </InputGroup>
       </Stack>
     </Container>
   );
