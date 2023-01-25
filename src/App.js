@@ -1,6 +1,6 @@
-import { Button, Container, Heading, Text, Stack, Spacer, Box, OrderedList, ListItem } from "@chakra-ui/react";
+import { Button, Container, Heading, Text, Stack, Box, OrderedList, ListItem } from "@chakra-ui/react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function App() {
   var [users, setUsers] = useState([{}]);
@@ -11,10 +11,6 @@ function App() {
       setClick(true)
     })
   }
-
-  // useEffect(() => {
-  //   getData();
-  // }, [])
 
   return (
     <Container maxW={"4xl"} mt={7}>
